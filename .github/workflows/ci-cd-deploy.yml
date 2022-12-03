@@ -1,19 +1,19 @@
+name: Azure Static Web Apps CI/CD
+
 on:
   push:
     branches:
       - main
   pull_request:
     types: [opened, synchronize, reopened, closed]
-
-name: 🚀 Deploy website on push
+    branches:
+      - main
 
 jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
-    environment: 
-      name: development
     steps:
       - uses: actions/checkout@v2
         with:
@@ -36,8 +36,6 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Close Pull Request Job
-    environment: 
-      name: development
     steps:
       - name: Close Pull Request
         id: closepullrequest
